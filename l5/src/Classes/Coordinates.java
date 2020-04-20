@@ -1,6 +1,6 @@
 package Classes;
 
-import com.company.FieldException;
+import Exceptions.FieldException;
 
 public class Coordinates {
     private long x; //Значение поля должно быть больше -538

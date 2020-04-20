@@ -1,6 +1,6 @@
 package Classes;
 
-import com.company.FieldException;
+import Exceptions.FieldException;
 
 import java.util.Date;
 

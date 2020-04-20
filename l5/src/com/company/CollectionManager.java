@@ -3,6 +3,7 @@ package com.company;
 
 
 import Classes.SpaceMarine;
+import Exceptions.FileReaderException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -43,6 +44,11 @@ public class CollectionManager {
     }
 
     public static void add(SpaceMarine spaceMarine) {
+        collection.add(spaceMarine);
+    }
+
+    public static void addFromJson(SpaceMarine spaceMarine) {
+        spaceMarine.setID(spaceMarine.getID());
         collection.add(spaceMarine);
     }
 
@@ -132,8 +138,15 @@ public class CollectionManager {
     }
 
     public static void removeL() {
-        collection.remove(collection.lastElement());
-        System.out.println("Успешно устранено");
+        if (!getCollection().isEmpty()) {
+            collection.remove(collection.lastElement());
+            System.out.println("Успешно устранено");
+        }
+        else {
+            System.out.println("Не удалось удалить последний элемент потому что нечего удалять");
+        }
     }
+
+
 }
 

@@ -4,7 +4,9 @@ import Classes.Chapter;
 import Classes.Coordinates;
 import Classes.MeleeWeapon;
 import Classes.SpaceMarine;
+import Exceptions.FieldException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import static Classes.MeleeWeapon.MANREAPER;
@@ -240,6 +242,26 @@ public class Creator {
             SpaceMarine sp = new SpaceMarine(id,name,new Coordinates(x,y), new Date(),health,heartCount,height,meleeWeapon,chapter);
             return sp;
         }
+
+        public static SpaceMarine ScriptFromJsonToCollection(ArrayList<String> field) {
+            if (data(field)) {
+                return new SpaceMarine(Integer.parseInt(field.get(0)), name.valueOf(field.get(1)), new Coordinates(Integer.parseInt(field.get(2)), Integer.parseInt(field.get(3))), new Date(field.get(4)), Long.parseLong(field.get(5)), Integer.parseInt(field.get(6)), Integer.parseInt(field.get(7)),MeleeWeapon.valueOf(field.get(8)),new Chapter(field.get(9),field.get(10),field.get(11)));
+            } else {
+                System.out.println("Ошибка в параметрах");
+            }
+            return  null;
+        }
+
+        private static boolean data(ArrayList<String> field) {
+            try {
+                return (!field.get(0).isEmpty()) && (field.get(1).isEmpty()) && (Integer.parseInt(field.get(2)) > -538) && (Integer.parseInt(field.get(5)) > 0) && (Integer.parseInt(field.get(6)) > 0) && ((Integer.parseInt(field.get(7))) > 0) && (Integer.parseInt(field.get(6)) <3);
+
+            } catch (NumberFormatException e) {
+                return false;
+            }
+
+        }
 }
+
 
 

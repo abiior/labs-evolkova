@@ -1,6 +1,8 @@
 package com.company;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import Classes.SpaceMarine;
 import Commands.ExcecuteScript;
@@ -12,7 +14,7 @@ import Commands.ExcecuteScript;
 import static com.company.CollectionManager.getCollection;
 
 public class CommandReciever {
-private File file;
+    private File file;
     private final CommandInvoker commandInvoker;
 
     public CommandReciever(CommandInvoker commandInvoker) {
@@ -35,8 +37,7 @@ private File file;
 
 
     public void add() {
-        SpaceMarine spaceMarine = Creator.SpaceMarineCreator();
-        getCollection().add(spaceMarine);
+        CollectionManager.add(Creator.SpaceMarineCreator());
     }
 
     public void clear() {
@@ -50,7 +51,6 @@ private File file;
     }
 
     /**
-     *
      * @param path путь до файла
      */
 
@@ -67,7 +67,40 @@ private File file;
         }
     }
 
-    public void ascendingHeight() {
+    public void LoadDataFromJson(String path) {
+        String line;
+        String command;
+        ArrayList<String> field = new ArrayList<>();
+        try (DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(path)))) {
+            while ((line = dataInputStream.readLine()) != null) {
+                if (line.split(" ")[0].matches("add|update")) {
+                    command = line;
+                    for (int i = 0; i < 13; i++) {
+                        if (line != null) {
+                            line = dataInputStream.readLine();
+                            field.add(line);
+                        } else {
+                            System.out.println("Не хватает параметров для создания объекта.");
+                            break;
+                        }
+                    }
+                    SpaceMarine spaceMarine = Creator.ScriptFromJsonToCollection(field);
+                    switch (command.split(" ")[0]) {
+                        case "add":
+                            CollectionManager.add(spaceMarine);
+                            break;
+                        case "update":
+                            CollectionManager.update(spaceMarine, Integer.parseInt(command.split(" ")[1]));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка! " + e.getMessage());
+        }
+    }
+
+
+            public void ascendingHeight() {
         CollectionManager.AscendingHeight();
     }
 
