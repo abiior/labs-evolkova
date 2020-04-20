@@ -20,7 +20,6 @@ public class ConsoleManager {
         commandInvoker.register("add", new Add(commandReciever));
         commandInvoker.register("info", new Info(commandReciever));
         commandInvoker.register("show", new Show(commandReciever));
-        commandInvoker.register("update", new Update(commandReciever));
         commandInvoker.register("remove_by_id", new RemoveByID(commandReciever));
         commandInvoker.register("clear", new Clear(commandReciever));
         commandInvoker.register("exit", new Exit(commandReciever));

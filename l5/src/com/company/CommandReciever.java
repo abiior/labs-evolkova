@@ -108,9 +108,6 @@ public class CommandReciever {
         CollectionManager.DescendingHeight();
     }
 
-    public void update() {
-
-    }
 
 
     public void remove_by_id(String ID) {
